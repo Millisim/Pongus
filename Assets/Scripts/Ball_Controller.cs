@@ -43,7 +43,7 @@ public class Ball_Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null && collision.tag != "funnyWall")
+        if (collision != null && collision.tag == "L-Zone" || collision.tag == "R-Zone")
         {
             gameManager.SetScores(collision.tag);
 
@@ -51,7 +51,7 @@ public class Ball_Controller : MonoBehaviour
             ResetBall();
             Invoke("Serve", 1);
         }
-        else if (collision.tag == "funnyWall")
+        else
         {
             ballSpeed = ballSpeed + 0.2f;
         }
@@ -63,5 +63,14 @@ public class Ball_Controller : MonoBehaviour
         direction.y = Random.Range(-startY, startY);
         rb.transform.position = direction;
         rb.linearVelocity = Vector2.zero;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        float speedIncrease = 1.1f;
+        PaddleController paddle = collision.collider.GetComponent<PaddleController>();
+        if (paddle)
+        {
+            rb.linearVelocity *= speedIncrease;
+        }
     }
 }
