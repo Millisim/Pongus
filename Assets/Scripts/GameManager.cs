@@ -3,8 +3,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     int scoreOfPlayer1, scoreOfPlayer2;
-    public ScoreTextController scoreTextLeft, scoreTextRight;
-    
+    // public ScoreTextController scoreTextLeft, scoreTextRight;
+    public GameUIController gameUI;
+    int winScore = 4;
+
     public void SetScores(string zoneTag)
     {
         if (zoneTag == "L-Zone")
@@ -13,12 +15,17 @@ public class GameManager : MonoBehaviour
         if (zoneTag == "R-Zone")
             scoreOfPlayer1++;
 
-        UpdateScoreBoard();
+        gameUI.UpdateScoreBoard(scoreOfPlayer1, scoreOfPlayer2);
     }
 
-    private void UpdateScoreBoard()
+    public bool CheckWin()
     {
-        scoreTextLeft.SetScore(scoreOfPlayer1);
-        scoreTextRight.SetScore(scoreOfPlayer2);
+        int winnerId = scoreOfPlayer1 == winScore ? 1 : scoreOfPlayer2 == winScore ? 2 : 0;
+        if (winnerId != 0)
+        {
+            gameUI.OnWin(winnerId);
+            return true;
+        }
+        return false;
     }
 }

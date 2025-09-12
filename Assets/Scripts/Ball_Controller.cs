@@ -11,10 +11,10 @@ public class Ball_Controller : MonoBehaviour
     private float startX = 0f;
     public float startY = 4f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        Invoke("Serve", delay);
-    }
+    //void Start()
+    //{
+    //    Invoke("Serve", delay);
+    //}
 
     // Update is called once per frame
     void Update()
@@ -22,7 +22,7 @@ public class Ball_Controller : MonoBehaviour
         
     }
 
-    void Serve()
+    public void Serve()
     {
         // Find the rigidbody component
         // rb = GetComponent<Rigidbody2D>();
@@ -48,10 +48,14 @@ public class Ball_Controller : MonoBehaviour
             gameManager.SetScores(collision.tag);
 
             ballSpeed = ballSpeed + 0.2f;
-            ResetBall();
-            Invoke("Serve", 1);
+
+            if (!gameManager.CheckWin())
+            {
+                ResetBall();
+                Invoke("Serve", 1);
+            }
         }
-        else
+        else if (collision.tag == "funnyWall")
         {
             ballSpeed = ballSpeed + 0.2f;
         }
