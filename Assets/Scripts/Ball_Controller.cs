@@ -61,7 +61,7 @@ public class Ball_Controller : MonoBehaviour
         }
     }
 
-    private void ResetBall()
+    public void ResetBall()
     {
         Vector2 direction = Vector2.zero;
         direction.y = Random.Range(-startY, startY);

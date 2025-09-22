@@ -17,7 +17,11 @@ public class GameUIController : MonoBehaviour
     public void OnStartButtonClicked()
     {
         gameMenu.SetActive(false);
+        scoreTextPlayer1.SetScore(0);
+        scoreTextPlayer2.SetScore(0);
+        ball.ResetBall();
         ball.Serve();
+        Invoke("Serve", 1);
     }
 
     public void OnWin(int winnerId)
