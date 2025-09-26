@@ -1,9 +1,23 @@
 using System;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null) {
+                GameObject obj = new GameObject("GameManager");
+                _instance = obj.AddComponent<GameManager>();
+                DontDestroyOnLoad(obj);
+            }
+            return _instance;
+        }
+        
+    }
 
     private int scoreOfPlayer1, scoreOfPlayer2;
     public event Action<int, int> OnScore;  // notify when scores change
@@ -13,14 +27,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Ensure only one instance exists (Singleton pattern)
-        if (Instance != null && Instance != this)
-        {
+        if (_instance == null)
+            _instance = this;
+        else
             Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void SetScores(string zoneTag)
@@ -40,4 +50,13 @@ public class GameManager : MonoBehaviour
             OnWin?.Invoke(winnerId); // Notify subscribers of win
         }
     }
+    public void ResetScores()
+    {
+        scoreOfPlayer1 = 0;
+        scoreOfPlayer2 = 0;
+
+        // Notify subscribers so the UI resets
+        OnScore?.Invoke(scoreOfPlayer1, scoreOfPlayer2);
+    }
+
 }

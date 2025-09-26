@@ -6,17 +6,17 @@ public class Ball_Controller : MonoBehaviour
     public float ballSpeed = 4f;
     public float maxInitialAngle = 0.67f;
     public float startY = 4f;
-    private float baseBallSpeed;
+    public float baseBallSpeed;
 
     private void Awake()
     {
-        baseBallSpeed = ballSpeed; // Remember the starting speed
+       baseBallSpeed = ballSpeed; // Remember the starting speed
     }
 
     private void OnEnable()
     {
         // Subscribe to GameManager's score updates (Observer pattern)
-        if (GameManager.Instance != null)
+        //if (GameManager.Instance != null)
             GameManager.Instance.OnScore += OnScoreReached;
     }
 
@@ -31,7 +31,7 @@ public class Ball_Controller : MonoBehaviour
     private void OnScoreReached(int score1, int score2)
     {
         ResetBall();
-        Invoke("Serve", 1f);
+        Serve();
     }
 
     public void Serve()

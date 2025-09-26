@@ -36,6 +36,7 @@ public class GameUIController : MonoBehaviour
 
     private void ShowWinScreen(int winnerId)
     {
+        ball.ResetBall();
         gameMenu.SetActive(true);
         winText.text = $"Player {winnerId} Victory";
     }
@@ -43,7 +44,12 @@ public class GameUIController : MonoBehaviour
     public void OnStartButtonClicked()
     {
         gameMenu.SetActive(false);
-        UpdateScoreBoard(0, 0);
+
+        // Reset GameManager scores for the new game
+        GameManager.Instance.ResetScores();
+
+
+        ball.ballSpeed = ball.baseBallSpeed;
         ball.ResetBall();
         ball.Serve();
     }
