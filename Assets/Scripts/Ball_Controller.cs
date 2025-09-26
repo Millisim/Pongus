@@ -28,7 +28,6 @@ public class Ball_Controller : MonoBehaviour
     private void OnScoreReached(int score1, int score2)
     {
         ResetBall();
-        ballSpeed = baseBallSpeed; // Reset to original speed
         Invoke("Serve", 1f);
     }
 
