@@ -183,8 +183,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Color: {r: 0, g: 0.86478305, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -222,9 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 25177870}
-  gameManager: {fileID: 1091028552}
   ballSpeed: 5
-  delay: 1
   maxInitialAngle: 0.67
   startY: 4
 --- !u!50 &25177870
@@ -1294,7 +1292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81fb687fe95a94745920556cac1fe3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameUI: {fileID: 374629450}
+  winScore: 4
 --- !u!1001 &1127758429
 PrefabInstance:
   m_ObjectHideFlags: 0
