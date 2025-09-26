@@ -20,6 +20,8 @@ public class ScoreTextController : MonoBehaviour
 
     public void SetScore(int score)
     {
+        // Updates the UI text to reflect the player's current score
         text.text = score.ToString();
     }
+
 }

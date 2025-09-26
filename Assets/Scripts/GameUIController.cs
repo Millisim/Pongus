@@ -9,6 +9,7 @@ public class GameUIController : MonoBehaviour
 
     private void OnEnable()
     {
+        // Subscribe to score and win events (Observer pattern)
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnScore += UpdateScoreBoard;
@@ -18,12 +19,14 @@ public class GameUIController : MonoBehaviour
 
     private void OnDisable()
     {
+        // Unsubscribe to prevent memory leaks
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnScore -= UpdateScoreBoard;
             GameManager.Instance.OnWin -= ShowWinScreen;
         }
     }
+
 
     private void UpdateScoreBoard(int scoreOfPlayer1, int scoreOfPlayer2)
     {

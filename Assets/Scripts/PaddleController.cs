@@ -8,13 +8,14 @@ public class PaddleController : MonoBehaviour
     public float moveSpeed = 5f;
 
     // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
-        // We'd use a command like this if we didn't have a public Rigidbody2D
-        // rb = gameObject.GetComponent<Rigidbody2D>();
+        // Moves the paddle based on player input
         float axisValue = GetAxisValue();
         MovePaddle(axisValue);
     }
+
 
     private void MovePaddle(float axisValue)
     {

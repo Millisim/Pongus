@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // Ensure only one instance exists (Singleton pattern)
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -29,14 +30,14 @@ public class GameManager : MonoBehaviour
         else if (zoneTag == "R-Zone")
             scoreOfPlayer1++;
 
-        // Notify listeners
+        // Notify subscribers that score changed (Observer pattern)
         OnScore?.Invoke(scoreOfPlayer1, scoreOfPlayer2);
 
-        // Check for win condition
+        // Check if someone won
         int winnerId = scoreOfPlayer1 == winScore ? 1 : scoreOfPlayer2 == winScore ? 2 : 0;
         if (winnerId != 0)
         {
-            OnWin?.Invoke(winnerId);
+            OnWin?.Invoke(winnerId); // Notify subscribers of win
         }
     }
 }

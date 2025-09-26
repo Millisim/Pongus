@@ -15,16 +15,19 @@ public class Ball_Controller : MonoBehaviour
 
     private void OnEnable()
     {
+        // Subscribe to GameManager's score updates (Observer pattern)
         if (GameManager.Instance != null)
             GameManager.Instance.OnScore += OnScoreReached;
     }
 
     private void OnDisable()
     {
+        // Unsubscribe to prevent memory leaks
         if (GameManager.Instance != null)
             GameManager.Instance.OnScore -= OnScoreReached;
     }
 
+    // Called when a score is made; resets the ball
     private void OnScoreReached(int score1, int score2)
     {
         ResetBall();
@@ -67,15 +70,10 @@ public class Ball_Controller : MonoBehaviour
         IncreaseBallSpeed(0.2f);
 
         if (collision.CompareTag("L-Zone"))
-        {
-            // Right player scores
-            GameManager.Instance.SetScores("R-Zone");
-        }
+            GameManager.Instance.SetScores("R-Zone"); // Right player scores
+
         else if (collision.CompareTag("R-Zone"))
-        {
-            // Left player scores
-            GameManager.Instance.SetScores("L-Zone");
-        }
+            GameManager.Instance.SetScores("L-Zone"); // Left player scores
     }
 
     private void IncreaseBallSpeed(float amount)
