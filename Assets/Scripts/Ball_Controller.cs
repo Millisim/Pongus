@@ -70,10 +70,10 @@ public class Ball_Controller : MonoBehaviour
         IncreaseBallSpeed(0.2f);
 
         if (collision.CompareTag("L-Zone"))
-            GameManager.Instance.SetScores("R-Zone"); // Right player scores
+            GameManager.Instance.SetScores("L-Zone"); // Right player scores
 
         else if (collision.CompareTag("R-Zone"))
-            GameManager.Instance.SetScores("L-Zone"); // Left player scores
+            GameManager.Instance.SetScores("R-Zone"); // Left player scores
     }
 
     private void IncreaseBallSpeed(float amount)
