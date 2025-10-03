@@ -105,6 +105,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   playerId: 0
   moveSpeed: 5
+  cpuDelay: 0
+  ball: {fileID: 0}
 --- !u!50 &1458614006958725056
 Rigidbody2D:
   serializedVersion: 5

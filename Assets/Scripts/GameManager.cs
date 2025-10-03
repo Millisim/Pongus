@@ -5,6 +5,22 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
+
+    // Selected gamemode for vs Player or vs CPU
+    public PlayMode playMode;
+
+    private int scoreOfPlayer1, scoreOfPlayer2; // current scores for each player
+    public event Action<int, int> OnScore;  // notify when scores change
+    public event Action<int> OnWin;         // notify when someone wins
+    public int winScore = 8;                    // threshold for victory
+
+    public enum PlayMode
+    {
+        PlayerVsPlayer,
+        PlayerVsCPU,
+        CPUVsCPU
+    }
+
     public static GameManager Instance
     {
         get
@@ -18,12 +34,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
-    private int scoreOfPlayer1, scoreOfPlayer2;
-    public event Action<int, int> OnScore;  // notify when scores change
-    public event Action<int> OnWin;         // notify when someone wins
-
-    [SerializeField] private int winScore = 4;
 
     private void Awake()
     {
@@ -44,7 +54,11 @@ public class GameManager : MonoBehaviour
         OnScore?.Invoke(scoreOfPlayer1, scoreOfPlayer2);
 
         // Check if someone won
-        int winnerId = scoreOfPlayer1 == winScore ? 1 : scoreOfPlayer2 == winScore ? 2 : 0;
+
+        int winnerId = 0;
+        if (scoreOfPlayer1 == winScore) winnerId = 1;
+        if (scoreOfPlayer2 == winScore) winnerId = 2;
+
         if (winnerId != 0)
         {
             OnWin?.Invoke(winnerId); // Notify subscribers of win

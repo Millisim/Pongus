@@ -6,6 +6,7 @@ public class GameUIController : MonoBehaviour
     public GameObject gameMenu;
     public Ball_Controller ball;
     public TMPro.TextMeshProUGUI winText;
+    public TMPro.TextMeshProUGUI playModeText;
 
     private void OnEnable()
     {
@@ -15,6 +16,11 @@ public class GameUIController : MonoBehaviour
             GameManager.Instance.OnScore += UpdateScoreBoard;
             GameManager.Instance.OnWin += ShowWinScreen;
         }
+    }
+
+    private void Start()
+    {
+        OnPlayModeButtonClicked();
     }
 
     private void OnDisable()
@@ -53,4 +59,27 @@ public class GameUIController : MonoBehaviour
         ball.ResetBall();
         ball.Serve();
     }
-}
+
+    public void OnPlayModeButtonClicked()
+    {
+        switch (GameManager.Instance.playMode)
+        {
+            case GameManager.PlayMode.PlayerVsPlayer:
+                GameManager.Instance.playMode = GameManager.PlayMode.PlayerVsCPU;
+                playModeText.text = "Player vs CPU";
+                break;
+
+            case GameManager.PlayMode.PlayerVsCPU:
+                GameManager.Instance.playMode = GameManager.PlayMode.CPUVsCPU;
+                playModeText.text = "CPU vs CPU";
+                break;
+
+            case GameManager.PlayMode.CPUVsCPU:
+                GameManager.Instance.playMode = GameManager.PlayMode.PlayerVsPlayer;
+                playModeText.text = "Player vs Player";
+                break;
+        }
+    }
+
+    }
+
